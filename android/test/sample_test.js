@@ -1,9 +1,28 @@
 var assert = require('assert');
+const fs = require('fs');
+const path = require('path');
 const { Builder, By, until } = require('selenium-webdriver');
 
+// Build a BrowserStack App Automate session instead of local Appium
 var buildDriver = function() {
+  const caps = {
+    platformName: 'android',
+    // App under test. The BrowserStack Node SDK will populate env vars from browserstack.yml
+    'appium:app': process.env.BROWSERSTACK_APP_ID || 'bs://sample.app',
+    'bstack:options': {
+      userName: "anshulgoyal_0FToz5",
+      accessKey: "mhDcLrDXUT1yRSpW78uS",
+      deviceName: 'Google Pixel 7 Pro',
+      osVersion: '13.0',
+      projectName: process.env.BROWSERSTACK_PROJECT || 'bstack-test-ai',
+      buildName: process.env.BROWSERSTACK_BUILD || 'bstack-test-ai',
+      sessionName: 'Wikipedia search'
+    }
+  };
+
   return new Builder()
-    .usingServer('http://127.0.0.1:4723/wd/hub')
+    .usingServer('https://hub.browserstack.com/wd/hub')
+    .withCapabilities(caps)
     .build();
 };
 
@@ -28,6 +47,9 @@ async function bstackSampleTest () {
     await insertTextSelector.sendKeys('BrowserStack');
     await driver.sleep(5000);
 
+  // Example screenshot after typing
+  try { await takeScreenshot(driver, 'after-search-input'); } catch (e) {}
+
     var allProductsName = await driver.findElements(
       By.xpath(
         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout[1]/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ListView/android.widget.LinearLayout'
@@ -39,6 +61,8 @@ async function bstackSampleTest () {
       'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Search in Wikipedia done correctly"}}'
     );
   } catch (e) {
+  // Capture a screenshot on failure for debugging
+  try { await takeScreenshot(driver, 'error'); } catch (_) {}
     await driver.executeScript(
       'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "Some elements failed to load"}}'
     );
