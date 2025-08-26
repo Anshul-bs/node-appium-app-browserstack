@@ -283,6 +283,7 @@ async function runTestCase(caseData, driver, retries = 0) {
       saveDir: saveDir,
       labelled: false,
       frameworkObj,
+      memoryOptions: {maxScreenshot:2},
       waitCallback: async (waitAction) => {
         console.log(
           `${waitAction.type}::: ${waitAction.request.variant}-${waitAction.request.thought}`
@@ -334,9 +335,9 @@ async function runTestCase(caseData, driver, retries = 0) {
         // 'keyboard:select_all',
         // 'native_element:set_value',
         'wait',
-        // 'validator:text',
-        // 'validator:visual',
-        // 'validator:element',
+        'validator:text',
+        'validator:visual',
+        'validator:element',
       ],
       variables: Object.keys(varExample).map((vId) => ({
         name: varExample[vId].name,
@@ -444,8 +445,9 @@ async function run() {
   try {
     driver = await openAppWithCaps();
     AISDK.configure({ domain: TCG_DOMAIN, platform: "desktop" });
-
-    await runTestCase({ id: 1, ques: "Scroll down twice", web: "" }, driver);
+    //sleep 10s
+    await new Promise(resolve => setTimeout(resolve, 10000));
+    await runTestCase({ id: 1, ques: "Check if Login button with id 'login' is present on the screen In the news is Displayed", web: "" }, driver);
   } catch (error) {
     console.log(error);
   } finally {
