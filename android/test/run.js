@@ -7,7 +7,9 @@ const {
 const {
   NL2StepsNxt,
   PlaywrightFramework,
-  AppiumFramework
+  AppiumFramework,
+  BrowserAgent,
+  AppiumDriver
 } = require("@browserstack/ai-sdk-node/lib");
 const {
   setLoggerBase,
@@ -254,7 +256,7 @@ async function runTestCase(caseData, driver, retries = 0) {
   // await context.addInitScript(elementExtractorScript);
   // await page.goto(url, { timeout: 120000, waitUntil: "domcontentloaded" });
   // const frameworkObj = new PlaywrightFramework(page, context, chromium);
-  const frameworkObj = new AppiumFramework(driver);
+  const frameworkObj = new AppiumDriver(driver);
   const varExample = {
     1: { name: "name", value: "gajikah385@notedns.com" },
     2: { name: "pwd", value: "strongpwd@123" },
@@ -268,14 +270,14 @@ async function runTestCase(caseData, driver, retries = 0) {
     const totalTime = Date.now() - startTime;
     log("completed", caseData, "total time", totalTime);
 
-    response.metrics = (r?.metrics);
-    response.apiTimes = r?.apiTimes;
-    response.metrics.actualTotal = totalTime;
+    // response.metrics = (r?.metrics);
+    // response.apiTimes = r?.apiTimes;
+    // response.metrics.actualTotal = totalTime;
   }
 
   try {
     setLoggerBase("console");
-    const out = await NL2StepsNxt.start({
+    const out = await BrowserAgent.start({
       id: reqId,
       objective: ques,
       saveDir: saveDir,
@@ -283,7 +285,7 @@ async function runTestCase(caseData, driver, retries = 0) {
       frameworkObj,
       waitCallback: async (waitAction) => {
         console.log(
-          `${waitAction.type}::: ${waitAction.request.action}-${waitAction.request.thought}`
+          `${waitAction.type}::: ${waitAction.request.variant}-${waitAction.request.thought}`
         );
         if (waitAction.type === "INPUT") {
           await waitSeconds(2);
@@ -315,11 +317,26 @@ async function runTestCase(caseData, driver, retries = 0) {
       },
       authMethod: getAuthToken,
       waitAfterActions: true,
-      supportedCustomActions: [
-        "textValidate",
-        "visualValidate",
-        "elementValidate",
-        "extractValue",
+      supportedActions: [
+        'mouse:click',
+        'mouse:double_click',
+        // 'mouse:right_click',
+        'mouse:move',
+        'mouse:scroll',
+        'keyboard:type',
+        // 'browser:tab:new',
+        // 'browser:tab:switch',
+        // 'browser:nav',
+        // 'mouse:drag',
+        'keyboard:enter',
+        'keyboard:tab',
+        'keyboard:backspace',
+        // 'keyboard:select_all',
+        // 'native_element:set_value',
+        'wait',
+        // 'validator:text',
+        // 'validator:visual',
+        // 'validator:element',
       ],
       variables: Object.keys(varExample).map((vId) => ({
         name: varExample[vId].name,
@@ -428,7 +445,7 @@ async function run() {
     driver = await openAppWithCaps();
     AISDK.configure({ domain: TCG_DOMAIN, platform: "desktop" });
 
-    await runTestCase({ id: 1, ques: "Click on options menu.", web: "" }, driver);
+    await runTestCase({ id: 1, ques: "Scroll down twice", web: "" }, driver);
   } catch (error) {
     console.log(error);
   } finally {
