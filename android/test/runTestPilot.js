@@ -263,7 +263,7 @@ async function runTestCase(caseData, driver, retries = 0) {
   const saveDir = reqId;
   let annotatedId = 1;
   const clientOptions = {
-    source: 'aiproxy:native:apps',
+    source: 'aiproxy:native:app',
     auth: {
       authMethod: 'basicAuth',
       authKey: 'cm9vdDpwYXNzd29yZA==',
@@ -453,8 +453,8 @@ async function runWithDelay() {
   let driver;
   try {
     driver = await openAppWithCaps();
-    await handleInitialAppSetup(driver);
-    AISDK.configure({ domain: TCG_DOMAIN, platform: "app" });
+    //await handleInitialAppSetup(driver);
+    //AISDK.configure({ domain: TCG_DOMAIN, platform: "app" });
     
     // Sleep 10s for initial setup
     await new Promise(resolve => setTimeout(resolve, 10000));
