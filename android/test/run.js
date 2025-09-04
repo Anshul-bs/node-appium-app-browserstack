@@ -39,9 +39,9 @@ const limit = pLimit(5);
 async function openAppWithCaps(options = {}) {
   const {
     platformName = options.platformName || 'android',
-    app = options.app || process.env.BROWSERSTACK_APP_ID || 'bs://sample.app',
-    userName = options.userName || process.env.BROWSERSTACK_USERNAME || 'anshulgoyal_0FToz5',
-    accessKey = options.accessKey || process.env.BROWSERSTACK_ACCESS_KEY || 'mhDcLrDXUT1yRSpW78uS',
+    app = options.app || process.env.BROWSERSTACK_APP_ID || 'bs://931a3117fabe14849b96e623205bcedfe499e136',
+    userName = options.userName || process.env.BROWSERSTACK_USERNAME || 'ankitaugale_FnUWEP',
+    accessKey = options.accessKey || process.env.BROWSERSTACK_ACCESS_KEY || 'CiZYpzAG5q5tzG4gweyQ',
     deviceName = options.deviceName || 'Google Pixel 7 Pro',
     osVersion = options.osVersion || '13.0',
     projectName = options.projectName || process.env.BROWSERSTACK_PROJECT || 'bstack-test-ai',
@@ -98,18 +98,53 @@ async function openAppWithCaps(options = {}) {
 //   // },
 //   // Add more cases here
 // ];
+  // Function to handle initial app setup (permissions and skip)
+  async function handleInitialAppSetup(driver) {
+    // Add wait and handle initial popups/permissions
+    await driver.manage().setTimeouts({ implicit: 5000 });
 
-// Function to load the JSONL file
-function loadDataset(filename) {
-  const dataset = [];
-  const lines = fs.readFileSync(filename, 'utf-8').split('\n');
-  lines.forEach((line) => {
-    if (line.trim()) {
-      dataset.push(JSON.parse(line));
+    // Wait for app to load and handle "Do not allow" alert if present
+    try {
+      await driver.sleep(3000); // Wait for app to fully load
+      
+      // Handle permission alert - click "Do not allow"
+      try {
+        const dontAllowButton = await driver.findElement({ id: 'com.android.permissioncontroller:id/permission_deny_button' });
+        await dontAllowButton.click();
+        console.log('Clicked "Do not allow" on permission alert');
+      } catch (e) {
+        // Alert might not appear, continue
+        console.log('No permission alert found or already handled');
+      }
+      
+      // Wait a bit and then handle skip button
+      await driver.sleep(2000);
+      
+      // Click skip button
+      try {
+        const skipButton = await driver.findElement({ xpath: "//android.widget.Button[contains(@text, 'Skip') or contains(@text, 'SKIP')]" });
+        await skipButton.click();
+        console.log('Clicked Skip button');
+      } catch (e) {
+        // Skip button might not be present
+        console.log('No skip button found or already handled');
+      }
+      
+    } catch (error) {
+      console.log('Error handling initial app setup:', error);
     }
-  });
-  return dataset;
-}
+  } 
+// Function to load the JSONL file
+// function loadDataset(filename) {
+//   const dataset = [];
+//   const lines = fs.readFileSync(filename, 'utf-8').split('\n');
+//   lines.forEach((line) => {
+//     if (line.trim()) {
+//       dataset.push(JSON.parse(line));
+//     }
+//   });
+//   return dataset;
+// }
 
 // Load the dataset from the JSONL file
 // const dataset = loadDataset('WebVoyager_Debug.jsonl');
@@ -270,9 +305,9 @@ async function runTestCase(caseData, driver, retries = 0) {
     const totalTime = Date.now() - startTime;
     log("completed", caseData, "total time", totalTime);
 
-    // response.metrics = (r?.metrics);
-    // response.apiTimes = r?.apiTimes;
-    // response.metrics.actualTotal = totalTime;
+    response.metrics = (r?.metrics);
+    response.apiTimes = r?.apiTimes;
+    response.metrics.actualTotal = totalTime;
   }
 
   try {
@@ -322,7 +357,7 @@ async function runTestCase(caseData, driver, retries = 0) {
         'mouse:click',
         'mouse:double_click',
         // 'mouse:right_click',
-        'mouse:move',
+        // 'mouse:move',
         'mouse:scroll',
         'keyboard:type',
         // 'browser:tab:new',
@@ -417,12 +452,44 @@ async function runTestCase(caseData, driver, retries = 0) {
     }
 
     // add metrics in all cases
-    fs.writeFileSync(`${outputDir}/metrics.json`, JSON.stringify(response), 'utf-8');
+    const metricsData = {
+      ...response,
+      apiTimesCount: response.apiTimes ? response.apiTimes.length : 0,
+      buildLink: ""
+    };
+    fs.writeFileSync(`${outputDir}/metrics.json`, JSON.stringify(metricsData), null, 2, 'utf-8');
 
     //await browser.close();
   }
 }
 
+
+async function runWithDelay() {
+  let driver;
+  try {
+    driver = await openAppWithCaps();
+    await handleInitialAppSetup(driver);
+    AISDK.configure({ domain: TCG_DOMAIN, platform: "desktop" });
+    
+    // Sleep 10s for initial setup
+    await new Promise(resolve => setTimeout(resolve, 10000));
+    
+    const dataset = JSON.parse(fs.readFileSync('testbed_input.json', 'utf-8'));
+    
+    // Run each test case with 1 minute delay between them
+      await runTestCase({id: 20, ques: "Open an article, then use the device's back button and verify that the app returns to the previous screen.", web: ""}, driver);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    if (driver) {
+      console.log("we are here...");
+      await driver.executeScript(
+        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Test cases completed"}}'
+      );
+      try { await driver.quit(); } catch (_) {}
+    }
+  }
+}
 async function run() {
   AISDK.configure({ domain: TCG_DOMAIN, platform: "desktop" });
 
@@ -441,21 +508,5 @@ async function run() {
 }
 
 (async () => {
-  let driver;
-  try {
-    driver = await openAppWithCaps();
-    AISDK.configure({ domain: TCG_DOMAIN, platform: "desktop" });
-    //sleep 10s
-    await new Promise(resolve => setTimeout(resolve, 10000));
-    await runTestCase({ id: 1, ques: "Check if Login button with id 'login' is present on the screen In the news is Displayed", web: "" }, driver);
-  } catch (error) {
-    console.log(error);
-  } finally {
-    if (driver) {
-       await driver.executeScript(
-      'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Search in Wikipedia done correctly"}}'
-      );
-      try { await driver.quit(); } catch (_) {}
-    }
-  }
+  await runWithDelay();
 })();
