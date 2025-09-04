@@ -1,0 +1,192 @@
+[
+  {
+    "id": 1,
+    "ques": "Tap on the \"Search\" option from below navigation bar and type \" india\" on the search bar and tap on the first suggestion ",
+    "web": ""
+  },
+  {
+    "id": 2,
+    "ques": "Click on the \"more\" option with three lines and click on \"log in\" option from the bottomsheet and type \"samplemay02nk\" into username field and clear the username fields",
+    "web": ""
+  },
+  {
+    "id": 3,
+    "ques": "Click on the \"more\" option with three lines and click on \"log in\" option from the bottomsheet and enter \"samplemay02nk\" in username  fields ",
+    "web": ""
+  },
+  {
+    "id": 4,
+    "ques": "Click on the \"more\" option with three lines and click on \"log in\" option from the bottomsheet and type \"samplemay02nk\" in username fields and press enter",
+    "web": ""
+  },
+  {
+    "id": 5,
+    "ques": "Tap on the \"Search\" option from below navigation bar and validate if the \"Search\" text title is present on the top of the page",
+    "web": ""
+  },
+  {
+    "id": 6,
+    "ques": "Click on the \"more\" option with three lines and tap on \"settings\" option from the bottomsheet and validate the presence of  \"collapse table\"  text",
+    "web": ""
+  },
+  {
+    "id": 7,
+    "ques": "Click on the \"more\" option with three lines, and then click on \"log in\" from the bottom sheet and enter \"samplemay02nk\" into the username field and \"S\" into the password field and validate if the \"Log In\" button is enabled",
+    "web": ""
+  },
+  {
+    "id": 8,
+    "ques": "Click on the \"more\" option with three lines and click on \"log in\" option from the bottomsheet and type \"search\" in username fields and then Clear the username field and validate if the username text field is now empty",
+    "web": ""
+  },
+  {
+    "id": 9,
+    "ques": "On the \"explore\" tab,validate if \"Today on Wikipedia\" hyperlink is present\n\n",
+    "web": ""
+  },
+  {
+    "id": 10,
+    "ques": "Click on the \"Search\" tab in the bottom navigation and validate page title is \"Search\" ",
+    "web": ""
+  },
+  {
+    "id": 11,
+    "ques": "Scroll to the bottom till you find a text \"Picture of the day\"\n\nScroll to the bottom till you find a text \"On this day\"\n",
+    "web": ""
+  },
+  {
+    "id": 12,
+    "ques": "On launching the app, \"send notifications\" popup appears. Tap on on the \"allow\" button to accept alerts",
+    "web": ""
+  },
+  {
+    "id": 13,
+    "ques": "Open the Home screen and click the \"Search Wikipedia\" bar.",
+    "web": ""
+  },
+  {
+    "id": 14,
+    "ques": "From the \"Explore\" tab, scroll down and click on the first article in the \"In the news\" section.",
+    "web": ""
+  },
+  {
+    "id": 15,
+    "ques": "From the Home screen, click the \"Search\" tab on the bottom navigation bar to open the Search screen.",
+    "web": ""
+  },
+  {
+    "id": 16,
+    "ques": "On the Home screen, click on the first \"Picture of the day\" image.",
+    "web": ""
+  },
+  {
+    "id": 17,
+    "ques": "From the Home screen, click on the \"Edits\" tab, then click on the edit icon  and type \"user12332\" in the \"Username\" field  ",
+    "web": ""
+  },
+  {
+    "id": 18,
+    "ques": "Open the Home screen and validate that the \"Wikipedia\" text is displayed.",
+    "web": ""
+  },
+  {
+    "id": 19,
+    "ques": "From the Home screen, click \"More\" then \"Log in\", and validate that the \"LOG IN\" button is enabled on the Login screen.",
+    "web": ""
+  },
+  {
+    "id": 20,
+    "ques": "Open an article, then use the device's back button and validate that the app returns to the previous screen.",
+    "web": ""
+  },
+  {
+    "id": 21,
+    "ques": "Open the first article from \"top read\" section, scroll down to the \"References\" section, and validate that the text block containing the word \"reference\" is visible.",
+    "web": ""
+  },
+  {
+    "id": 22,
+    "ques": "On the Home screen, scroll to the \"In the news\" carousel, swipe left to view the next news story.",
+    "web": ""
+  },
+  {
+    "id": 23,
+    "ques": "Open the Home screen, scroll down, and validate that a text block containing \"Featured article\" is displayed.",
+    "web": ""
+  },
+  {
+    "id": 24,
+    "ques": "Click on More icon on the homepage and then Open the Settings screen, validate that the \"Show link previews\" toggle is enabled, then click it to turn it off, and validate it is now disabled.",
+    "web": ""
+  },
+  {
+    "id": 25,
+    "ques": "Tap on the more icon and then \"log in option \" to open the \"Create an account\" screen, type \"sample02\" in username field and \"123\" in password field, and click \"Next\" and validate if error message related to \"password must be 8 characters\" appears",
+    "web": ""
+  },
+  {
+    "id": 26,
+    "ques": "Click on the \"more\" icon and then click on the \"Login\" option from the bottomsheet, type \"testuser\" into the username field, then click the eye icon to validate that the password text becomes visible.",
+    "web": ""
+  },
+  {
+    "id": 27,
+    "ques": "From the Home screen, click the \"Saved\" tab, then click the \"NOT NOW\" button, and validate that the message \"No saved pages yet\" is displayed..",
+    "web": ""
+  },
+  {
+    "id": 28,
+    "ques": "Open the Home screen, click the \"More\" tab and tap \"setting\", and validate that the \"Reading list syncing\" toggle is unchecked.",
+    "web": ""
+  },
+  {
+    "id": 29,
+    "ques": "From the Home screen, click on the \"Edits\" tab and validate that the text \"Did you know that everyone can edit Wikipedia?\" is displayed.",
+    "web": ""
+  },
+  {
+    "id": 30,
+    "ques": "Click on the \"more\" icon and then click on the \"Login\" button, and type \"samplemay02nk\" in username fielda and thenpress the \"Tab\" key to move focus from the \"Username\" to the \"Password\" field.",
+    "web": ""
+  },
+  {
+    "id": 31,
+    "ques": "From the Home screen, click the \"Search\" tab, and validate that the microphone icon is present in the search bar.",
+    "web": ""
+  },
+  {
+    "id": 32,
+    "ques": "Click on the first featured article in explore tab and then go back to the home screen and Open the \"Search\" tab and validate if delete icon is present on the screen",
+    "web": ""
+  },
+  {
+    "id": 33,
+    "ques": "Click on the \"Search\" bar from the explore tab and validate if there is an \"English language\" icon on the page",
+    "web": ""
+  },
+  {
+    "id": 34,
+    "ques": "Click on the \"Search\" bar from the explore tab and click on \"English language\" icon and click on \"add language\" and select \"espanol\"/\"spanish\" and validate if spanish/espanol is added to the languages grid",
+    "web": ""
+  },
+  {
+    "id": 35,
+    "ques": "Click on the 'more' icon on the home page and then click 'log in' from the bottomsheet and then type 'username 123' in the field and then simulate Backspace key presses to remove all characters one by one until the field is empty",
+    "web": ""
+  },
+  {
+    "id": 36,
+    "ques": "Click on the \"Search\" bar from the explore tab and click on \"English language\" icon and click on \"add language\" and select \"espanol\"/\"spanish\" and validate if the count of languages increased to 2 from 1 previously",
+    "web": ""
+  },
+  {
+    "id": 37,
+    "ques": "Click on the first article of the \"featured section\" and click on themes and select the second theme option from the bottomsheet and validate if the theme color changes",
+    "web": ""
+  },
+  {
+    "id": 38,
+    "ques": "Click on the first article of the \"featured section\" and click on \"contents\" section and select the second last option from the table of contents and validate if the selected section is displayed on the page",
+    "web": ""
+  }
+]
