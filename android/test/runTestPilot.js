@@ -33,6 +33,7 @@ dotenv.config({});
 const { createCanvas, loadImage } = require("canvas");
 
 const TCG_DOMAIN = "http://localhost:3000";
+// const TCG_DOMAIN = "https://tcg.bsstag.com";
 
 const limit = pLimit(5);
 
@@ -453,7 +454,7 @@ async function runWithDelay() {
   let driver;
   try {
     driver = await openAppWithCaps();
-    //await handleInitialAppSetup(driver);
+    await handleInitialAppSetup(driver);
     //AISDK.configure({ domain: TCG_DOMAIN, platform: "app" });
     
     // Sleep 10s for initial setup
@@ -462,7 +463,7 @@ async function runWithDelay() {
     const dataset = JSON.parse(fs.readFileSync('testbed_input.json', 'utf-8'));
     
     // Run each test case with 1 minute delay between them
-      await runTestCase({id: 20, ques: "Open an article, then use the device's back button and verify that the app returns to the previous screen.", web: ""}, driver);
+      await runTestCase({id: 35, ques: "Click on the 'more' icon on the home page and then click 'log in' from the bottomsheet and then type 'username 123' in the field and then simulate Backspace key presses to remove all characters one by one until the field is empty", web: ""}, driver);
   } catch (error) {
     console.log(error);
   } finally {
